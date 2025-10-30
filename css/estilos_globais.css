@@ -581,3 +581,152 @@ footer {
         font-size: var(--tamanho-h2);
     }
 }
+
+/* ======================================================================= */
+/* 2. IMPLEMENTAÇÃO DE ACESSIBILIDADE (WCAG 2.1 AA) */
+/* ======================================================================= */
+
+/* --- 1. FOCO VISÍVEL PARA NAVEGAÇÃO POR TECLADO --- */
+
+/* Aplicar um estilo de foco claro e consistente (WCAG AA exige contraste) */
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus,
+.dropbtn:focus {
+    /* Usando a cor de link ativo para alto contraste */
+    outline: 3px solid var(--cor-link-ativo); 
+    /* Garante que o outline não fique colado à borda do elemento */
+    outline-offset: 2px; 
+    /* Adiciona uma sombra interna para maior destaque */
+    box-shadow: 0 0 0 3px rgba(28, 69, 135, 0.5); 
+}
+
+/* Adicionar o foco ao Card para quem navega por teclado (com tab) */
+.card:focus-within {
+    transform: translateY(-5px);
+    /* Combina o efeito hover/active com um destaque de foco em volta */
+    box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.3), 0 0 0 3px var(--cor-primaria-base);
+    /* Remove o outline padrão, pois o box-shadow já serve como foco */
+    outline: none; 
+}
+
+
+/* --- 2. CORREÇÃO DE CONTRASTE (WCAG AA) --- */
+
+.badge-andamento {
+    /* CORREÇÃO: O contraste original era 1.77:1 (FAIL). 
+       Mudamos a cor do texto para o cinza escuro de texto, 
+       que oferece 6.47:1 de contraste (PASS). */
+    color: var(--cor-neutra-texto); 
+    
+    background-color: var(--cor-primaria-clara);
+    /* Mantém a borda para consistência visual */
+    border: 1px solid var(--cor-primaria-base); 
+}
+
+
+/* --- 3. ESTILOS DE FORMULÁRIO (Acessibilidade e Usabilidade para templateCadastro) --- */
+
+.formulario-container {
+    padding: var(--espaco-lg);
+    background-color: #f7f7f7;
+    border-radius: var(--borda-raio);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+fieldset {
+    border: 1px solid var(--cor-primaria-base);
+    padding: var(--espaco-md);
+    margin-bottom: var(--espaco-lg);
+    border-radius: var(--borda-raio);
+}
+
+legend {
+    font-size: var(--tamanho-h3);
+    color: var(--cor-secundaria-base);
+    padding: 0 var(--espaco-xs);
+    font-weight: bold;
+}
+
+.form-row {
+    display: flex;
+    gap: var(--espaco-md);
+    margin-bottom: var(--espaco-md);
+    /* Permite quebra de linha em telas pequenas */
+    flex-wrap: wrap; 
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* Distribui o espaço igualmente */
+    min-width: 250px; /* Garante que o input não fique muito estreito */
+}
+
+/* Garante que um campo específico ocupe 100% (ex: endereço) */
+.form-group.span-2 {
+    flex: 2;
+    min-width: 100%;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: var(--espaco-xs);
+    color: var(--cor-primaria-base);
+}
+
+input[type="text"], 
+input[type="email"], 
+input[type="date"], 
+input[type="tel"], 
+select {
+    padding: var(--espaco-sm);
+    border: 1px solid #ccc;
+    border-radius: var(--borda-raio);
+    font-size: var(--tamanho-base);
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Grid para checkboxes de interesse (Estilo tátil) */
+.areas-interesse-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--espaco-sm);
+    padding-top: var(--espaco-xs);
+}
+
+/* Esconde o input original, mas mantém sua funcionalidade e tabulação */
+.areas-interesse-grid input[type="checkbox"] {
+    position: absolute; 
+    opacity: 0;
+}
+
+/* Estiliza o rótulo (label) para parecer um botão clicável */
+.areas-interesse-grid label {
+    display: block;
+    cursor: pointer;
+    padding: var(--espaco-sm);
+    text-align: center;
+    border: 2px solid var(--cor-primaria-clara);
+    border-radius: var(--borda-raio);
+    background-color: white;
+    transition: background-color 0.2s, border-color 0.2s;
+    font-weight: 400;
+    color: var(--cor-neutra-texto);
+}
+
+/* Estilo quando o checkbox está marcado */
+.areas-interesse-grid input[type="checkbox"]:checked + label {
+    background-color: var(--cor-primaria-base);
+    color: white;
+    border-color: var(--cor-primaria-base);
+    font-weight: 600;
+}
+
+/* Garante que o rótulo estilizado tenha o foco visível (WCAG) */
+.areas-interesse-grid input[type="checkbox"]:focus + label {
+    outline: 3px solid var(--cor-link-ativo);
+    outline-offset: 2px;
+}
